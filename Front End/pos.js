@@ -1,35 +1,102 @@
+let quantity = document.querySelector('.product-quantity');
+let add = document.querySelector(".add");
+let minus = document.querySelector(".minus");
+let num = 0;
 
-let totalAmount = 99;
-let currentInput = "";
+console.log(quantity);
+console.log(add);
+console.log(minus);
 
-document.getElementById('amountDisplay').textContent = currentInput;
+// Update the event listeners to handle multiple products
+const productCards = document.querySelectorAll('.product-card');
 
-document.querySelectorAll('.number-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        currentInput += this.getAttribute('data-value');
-        document.getElementById('amountDisplay').textContent = currentInput;
+productCards.forEach(card => {
+    let quantityElement = card.querySelector('.product-quantity');
+    let addButton = card.querySelector('.add');
+    let minusButton = card.querySelector('.minus');
+    let priceElement = card.querySelector('.price');
+    let slip = document.querySelector('.board-quantity');
+    let partial = document.querySelector('.item-price2');
+
+    let num = 0;
+
+    addButton.addEventListener('click', () => {
+        num += 1;
+        quantityElement.innerHTML = num;
+        count();
+    });
+
+    minusButton.addEventListener('click', () => {
+        if (num > 0) {
+            num--;
+            quantityElement.innerHTML = num;
+            count();
+        }
+    });
+
+    function count() {
+        slip.innerHTML = num;
+        let total = num * parseFloat(priceElement.innerHTML);
+        partial.innerHTML = total.toFixed(2); // Format the total to 2 decimal places
+    }
+});
+
+// Payment functionality
+const amountDisplay = document.getElementById('amountDisplay');
+const changeOutput = document.getElementById('changeOutput');
+let totalAmount = 0;
+
+// Calculate total amount based on selected products
+function calculateTotal() {
+    totalAmount = 0;
+    productCards.forEach(card => {
+        let quantityElement = card.querySelector('.product-quantity');
+        let priceElement = card.querySelector('.price');
+        let productQuantity = parseInt(quantityElement.innerHTML);
+        let productPrice = parseFloat(priceElement.innerHTML);
+        
+        totalAmount += productQuantity * productPrice;
+    });
+    // Optionally, you can log the total amount to the console for debugging
+    console.log(`Total Amount: ₱${totalAmount.toFixed(2)}`);
+}
+
+// Keypad functionality for payment input
+const numberButtons = document.querySelectorAll('.number-btn');
+let paymentInput = '';
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        paymentInput += button.dataset.value;
+        amountDisplay.innerHTML = `₱${parseFloat(paymentInput).toFixed(2)}`;
     });
 });
 
-document.getElementById('clearInput').addEventListener('click', function() {
-    currentInput = "";
-    document.getElementById('amountDisplay').textContent = currentInput;
+// Backspace functionality
+document.getElementById('backspace').addEventListener('click', () => {
+    paymentInput = paymentInput.slice(0, -1); // Remove the last character
+    amountDisplay.innerHTML = paymentInput ? `₱${parseFloat(paymentInput).toFixed(2)}` : '₱0.00';
 });
 
-document.getElementById('calculateChange').addEventListener('click', function() {
-    let inputAmount = parseFloat(currentInput);
-    
-    if (isNaN(inputAmount)) {
-        alert("Please enter a valid amount.");
-        return;
-    }
+// Clear input functionality
+document.getElementById('clearInput').addEventListener('click', () => {
+    paymentInput = '';
+    amountDisplay.innerHTML = '₱0.00';
+});
 
-
-    let change = inputAmount - totalAmount;
-
-    if (change < 0) {
-        alert("Insufficient amount. Please enter a higher amount.");
+// Calculate change functionality
+document.getElementById('calculateChange').addEventListener('click', () => {
+    const paymentAmount = parseFloat(paymentInput);
+    if (isNaN(paymentAmount) || paymentAmount < totalAmount) {
+        changeOutput.innerHTML = "Insufficient payment.";
     } else {
-        document.getElementById('changeOutput').textContent = "Change: ₱" + change.toFixed(2);
+        const change = paymentAmount - totalAmount;
+        changeOutput.innerHTML = `Change: ₱${change.toFixed(2)}`;
     }
+});
+
+// Call calculateTotal whenever an item is added or removed
+productCards.forEach(card => {
+    card.querySelector('.add').addEventListener('click', calculateTotal);
+    card.querySelector('.minus').addEventListener('click', calculateTotal);
 });
