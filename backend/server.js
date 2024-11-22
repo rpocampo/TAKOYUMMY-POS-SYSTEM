@@ -1,13 +1,14 @@
 require('dotenv').config()
 
+const bcrypt = require('bcrypt')
+const express = require('express')
+const mongoose = require('mongoose')
+const account = require('./models/userModel')
+const loginRoutes = require('./auth/authRoutes')
 
-const express = require('express');
-const mongoose = require('mongoose');
-const account = require('./models/userModel'); // Path to your model file
+const app = express()
 
-const app = express();
-
-const uri = 'mongodb+srv://Marv:Marv1003_@mern.ohwxw.mongodb.net/Login?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://Marv:Marv1003_@mern.ohwxw.mongodb.net/Login?retryWrites=true&w=majority'
 
 // Middleware
 app.use(express.json());
@@ -25,8 +26,10 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
 // Routes
-const userRoutes = require('./routes/users'); // Example route file
-app.use('/api/users', userRoutes);
+const userRoutes = require('./routes/users') // Example route file
+app.use('/api/users', userRoutes)
+
+app.use('/api/', loginRoutes)
 
 // Start the server
 const PORT = process.env.PORT || 5050;

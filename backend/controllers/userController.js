@@ -30,30 +30,30 @@ const getUser = async (req, res) => {
 
 //create a user
 const createUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     // Validate input
-    if (!email || !password) {
-        return res.status(400).json({ error: 'Email and password are required' });
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required' });
     }
 
     try {
-        // Normalize email to lowercase
-        const normalizedEmail = email.toLowerCase();
+        // Normalize username to lowercase
+        const normalizedUsername = username.toLowerCase();
 
-        // Check if the email already exists
-        const existingUser = await account.findOne({ email: normalizedEmail });
+        // Check if the username already exists
+        const existingUser = await account.findOne({ username: normalizedUsername });
         if (existingUser) {
-            return res.status(400).json({ error: 'Email already exists' });
+            return res.status(400).json({ error: 'Username already exists' });
         }
 
         // Create a new user
-        const user = await account.create({ email: normalizedEmail, password });
+        const user = await account.create({ username: normalizedUsername, password });
         res.status(201).json(user);
     } catch (error) {
         // Handle errors
         if (error.code === 11000) { // Duplicate key error
-            res.status(400).json({ error: 'Email already exists' });
+            res.status(400).json({ error: 'Username already exists' });
         } else {
             res.status(400).json({ error: error.message });
         }
