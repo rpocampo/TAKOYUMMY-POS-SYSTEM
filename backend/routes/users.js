@@ -2,7 +2,9 @@ const express = require('express')
 const {
     createUser,
     getUsers,
-    getUser
+    getUser,
+    deleteUser,
+    updateUser
 } = require('../controllers/userController')
 
 
@@ -10,7 +12,7 @@ const {
 const user = express.Router()
 
 //get all users
-user.get('/', getUsers)
+user.get('/all', getUsers)
 
 
 
@@ -20,22 +22,18 @@ user.get('/:id', getUser)
 
 
 //post a new user
-user.post('/', createUser)
+user.post('/new', createUser)
 
 
 
 //delete a user
-user.delete('/:id', (req, res) => {
-    res.json({mssg: 'Delete a user'})
-})
+user.delete('/:id', deleteUser)
 
 
 
 
 //update a user
-user.patch('/:id', (req, res) => {
-    res.json({mssg: 'Update a user'})
-})
+user.patch('/:id', updateUser)
 
 
 

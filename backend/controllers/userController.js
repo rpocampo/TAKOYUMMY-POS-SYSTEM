@@ -1,4 +1,5 @@
 const account = require('../models/userModel')
+const mongoose = require('mongoose')
 
 
 //get all users
@@ -12,6 +13,10 @@ const getUsers = async (req, res) => {
 // get a user
 const getUser = async (req, res) => {
     const { id } = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({error: 'No User Found'})
+    }
 
     const user = await account.findById(id)
 
@@ -33,12 +38,21 @@ const createUser = async (req, res) => {
     }
 
     try {
-        // Create user in the database
-        const user = await account.create({ email, password });
+        // Normalize email to lowercase
+        const normalizedEmail = email.toLowerCase();
+
+        // Check if the email already exists
+        const existingUser = await account.findOne({ email: normalizedEmail });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Email already exists' });
+        }
+
+        // Create a new user
+        const user = await account.create({ email: normalizedEmail, password });
         res.status(201).json(user);
     } catch (error) {
-        // Handle duplicate key error
-        if (error.code === 11000) {
+        // Handle errors
+        if (error.code === 11000) { // Duplicate key error
             res.status(400).json({ error: 'Email already exists' });
         } else {
             res.status(400).json({ error: error.message });
@@ -48,13 +62,45 @@ const createUser = async (req, res) => {
 
 
 //delete a user
+const deleteUser = async (req, res) => {
+    const { id } = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({error: 'No User Found'})
+    }
+
+    const user = await account.findOneAndDelete({_id: id})
+
+    if (!user) {
+        return res.status(400).json({error: 'Cannot find User'})
+    }
+    res.status(200).json(user)
+}
 
 
 //update user
+const updateUser = async (req, res) => {
+    const { id } = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({error: 'No User Found'})
+    }
+
+    const user = await account.findOneAndUpdate({_id: id}, {
+        ...req.body
+    })
+
+    if (!user) {
+        return res.status(400).json({error: 'Cannot find User'})
+    }
+    res.status(200).json(user)
+}
 
 
 module.exports = {
     createUser,
     getUsers,
-    getUser
+    getUser,
+    deleteUser,
+    updateUser
 }
