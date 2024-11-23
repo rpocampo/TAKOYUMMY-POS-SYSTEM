@@ -82,6 +82,8 @@ document.getElementById('backspace').addEventListener('click', () => {
 document.getElementById('clearInput').addEventListener('click', () => {
     paymentInput = '';
     amountDisplay.innerHTML = '₱0.00';
+    changeOutput.innerHTML = ''; // Reset the change output
+    totalAmount = 0; // Reset the total amount
 });
 
 // Calculate change functionality
