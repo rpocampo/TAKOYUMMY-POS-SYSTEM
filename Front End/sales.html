@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tako-Yummy Hub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="salestyle.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+          <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+            <div class="position-sticky pt-3">
+                <div class="sidebar-header">
+                    <img src="https://scontent.fmnl13-3.fna.fbcdn.net/v/t39.30808-6/252959231_108543311633958_7288635393007285722_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=hedb8Ea_sSoQ7kNvgHwVt4C&_nc_zt=23&_nc_ht=scontent.fmnl13-3.fna&_nc_gid=AC2ej0BWj_2LBrgpxT0gYoa&oh=00_AYCLWLQNTbLTekYWX0n-rNGEccQ63u6FUXJYwm1acR2Yjg&oe=67426AF1" alt="Sidebar Image"> <!-- Replace this with your image URL -->
+                    <span class="sidebar-title">Tako-Yummy<br>Hub</span>
+                </div>
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="dashboard.html"><ion-icon name="home-outline"></ion-icon>
+                      Dashboard
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="sales.html"><ion-icon name="bar-chart-outline"></ion-icon>
+                      Sales
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="inventory.html"><ion-icon name="clipboard-outline"></ion-icon>
+                      Inventory
+                    </a>
+                  </li>
+                </ul>
+                <div class="logout">
+                    <a class="nav-link2" href="finalstesting.html"><ion-icon class="log-out-icon" name="log-out-outline"></ion-icon>Logout</a>
+                </div>
+              </div>
+            </nav>
+            
+            <div class="col-md-9 content">
+                <div class="row">
+                    <div class="col-md-12 text-right user-info">
+                        <span class="user-name">Username</span>
+                        <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+                    </div>
+                </div>
+                <h1 class="mb-4">Sales</h1>
+                <div class="card">
+                    <div class="card-body ">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" style="background-color: #FE2222;">Ingredients</th>
+                                        <th class="text-left" style="background-color: #FE2222;">Status</th>
+                                        <th class="text-center" style="background-color: #FE2222;">Actions</th>
+                                    </tr>
+                                </thead>
+                                
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Takoyaki Flavour</td>
+                                    <td class="in-stock">In-stock</td>
+                                    <td class="text-center action-icons">
+                                        <i class="fas fa-minus minus-icon ">-</i>
+                                        <i class="fas fa-plus plus-icon">+</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Octopus</td>
+                                    <td class="out-of-stock">Out of stock</td>
+                                    <td class="text-center action-icons">
+                                        <i class="fas fa-minus minus-icon">-</i>
+                                        <i class="fas fa-plus plus-icon">+</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Takoyaki Sauce</td>
+                                    <td class="in-stock">In-stock</td>
+                                    <td class="text-center action-icons">
+                                        <i class="fas fa-minus minus-icon">-</i>
+                                        <i class="fas fa-plus plus-icon">+</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bonito Flakes</td>
+                                    <td class="out-of-stock">Out of stock</td>
+                                    <td class="text-center action-icons">
+                                        <i class="fas fa-minus minus-icon">-</i>
+                                        <i class="fas fa-plus plus-icon">+</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Takoyaki Seasoning</td>
+                                    <td class="out-of-stock">Out of stock</td>
+                                    <td class="text-center action-icons">
+                                        <i class="fas fa-minus minus-icon">-</i>
+                                        <i class="fas fa-plus plus-icon">+</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

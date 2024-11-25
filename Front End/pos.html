@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS System</title>
+    <link rel="stylesheet" href="stylepos.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logo.png" alt="Takoyummy Logo">
+            </div>
+            <nav class="menu">
+                <a href="#" class="active">POS</a>
+                <a href="#">Inventory</a>
+                <a href="#">Sales</a>
+            </nav>
+            <button class="logout">Logout</button>
+        </aside>
+        
+        <main class="main-content">
+            <div class="product-list">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.bitemybun.com/wp-content/uploads/2020/11/Different-takoyaki-variations-1200x675.jpg" alt="Takoyaki" style="width:100%; height:auto; border-radius:10px;">
+                    </div>
+                    <p>Veggies</p>
+                    <p>₱ <span class="price">99</span></p>
+                    <div class="quantity">
+                        <button class="minus">-</button>
+                        <span class="product-quantity">0</span>
+                        <button class="add">+</button>
+                    </div>
+                    <button class="add-btn">Add</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">sample image</div>
+                    <p>Ham and Cheese</p>
+                    <p>₱ <span class="price">99</span></p>
+                    <div class="quantity">
+                        <button class="minus">-</button>
+                        <span class="product-quantity">0</span>
+                        <button class="add">+</button>
+                    </div>
+                    <button class="add-btn">Add</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">sample image</div>
+                    <p>Octobits</p>
+                    <p>₱ <span class="price">99</span></p>
+                    <div class="quantity">
+                        <button class="minus">-</button>
+                        <span class="product-quantity">0</span>
+                        <button class="add">+</button>
+                    </div>
+                    <button class="add-btn">Add</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">sample image</div>
+                    <p>Cheesy Octobits</p>
+                    <p>₱ <span class="price">99</span></p>
+                    <div class="quantity">
+                        <button class="minus">-</button>
+                        <span class="product-quantity">0</span>
+                        <button class="add">+</button>
+                    </div>
+                    <button class="add-btn">Add</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">sample image</div>
+                    <p>Cheese Bomb</p>
+                    <p>₱ <span class="price">99</span></p>
+                    <div class="quantity">
+                        <button class="minus">-</button>
+                        <span class="product-quantity">0</span>
+                        <button class="add">+</button>
+                    </div>
+                    <button class="add-btn">Add</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">sample image</div>
+                    <p>Takoyaki</p>
+                    <p>₱ <span class="price">99</span></p>
+                    <div class="quantity">
+                        <button class="minus">-</button>
+                        <span class="product-quantity">0</span>
+                        <button class="add">+</button>
+                    </div>
+                    <button class="add-btn">Add</button>
+                </div>
+
+
+            </div>
+        </main>
+        <aside class="order-summary">
+            <h2>Order Summary</h2>
+            <div class="order-item">
+                <div class="item-details">Total Price<br>Takoyaki</div>
+                <div class="board-quantity">0</div>
+                <div class="item-price">₱<span class="item-price2">0</span></div>
+            </div>
+            
+        
+
+        <div class="payment-section">
+            <h3>Payment</h3>
+            <div id="amountDisplay">0</div>
+            <div class="keypad">
+                <button class="number-btn" data-value="1">1</button>
+                <button class="number-btn" data-value="2">2</button>
+                <button class="number-btn" data-value="3">3</button>
+                <button class="number-btn" data-value="4">4</button>
+                <button class="number-btn" data-value="5">5</button>
+                <button class="number-btn" data-value="6">6</button>
+                <button class="number-btn" data-value="7">7</button>
+                <button class="number-btn" data-value="8">8</button>
+                <button class="number-btn" data-value="9">9</button>
+                <button class="number-btn" data-value="0">0</button>
+                <button id="clearInput">C</button>
+                <button id="calculateChange">Calculate Change</button>
+            </div>
+            <div id="changeOutput"></div>
+        </div>
+    </aside>
+    </div>
+
+    <script src="pos.js"></script>
+</body>
+</html>
