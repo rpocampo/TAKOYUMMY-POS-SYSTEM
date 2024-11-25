@@ -1,17 +1,17 @@
 require('dotenv').config()
 
-const bcrypt = require('bcrypt')
 const express = require('express')
 const mongoose = require('mongoose')
 const account = require('./models/userModel')
-const loginRoutes = require('./auth/authRoutes')
+const bodyParser = require('body-parser')
+const loginRoute = require('./routes/login')
 
 const app = express()
 
-const uri = 'mongodb+srv://Marv:Marv1003_@mern.ohwxw.mongodb.net/Login?retryWrites=true&w=majority'
 
 // Middleware
-app.use(express.json());
+app.use(express.json())
+app.use(bodyParser.json())
 
 // Database connection
 mongoose.connect(process.env.MONGO_URI)
@@ -26,10 +26,10 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
 // Routes
-const userRoutes = require('./routes/users') // Example route file
-app.use('/api/users', userRoutes)
+const loginRoutes = require('./routes/users') // Example route file
+app.use('/api/login', loginRoutes)
 
-app.use('/api/', loginRoutes)
+app.use('/api', loginRoute)
 
 // Start the server
 const PORT = process.env.PORT || 5050;
