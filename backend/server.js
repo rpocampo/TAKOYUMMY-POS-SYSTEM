@@ -4,7 +4,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const account = require('./models/userModel')
 const bodyParser = require('body-parser')
-const loginRoute = require('./routes/login')
+const authRoutes = require('./routes/auth')
+const userRoutes = require('./routes/users') 
+
 
 const app = express()
 
@@ -26,10 +28,9 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
 // Routes
-const loginRoutes = require('./routes/users') // Example route file
-app.use('/api/login', loginRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/users', userRoutes)
 
-app.use('/api', loginRoute)
 
 // Start the server
 const PORT = process.env.PORT || 5050;
