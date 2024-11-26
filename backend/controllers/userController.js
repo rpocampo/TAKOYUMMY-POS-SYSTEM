@@ -1,5 +1,7 @@
 const account = require('../models/userModel')
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+
 
 
 //get all users
@@ -7,7 +9,6 @@ const getUsers = async (req, res) => {
     const users = await account.find({}).sort({createdAt: -1})
     res.status(200).json(users)
 }
-
 
 
 // get a user
@@ -30,35 +31,41 @@ const getUser = async (req, res) => {
 
 //create a user
 const createUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    // Validate input
-    if (!email || !password) {
-        return res.status(400).json({ error: 'Email and password are required' });
+    // Check if both username and password are provided
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Username and password are required' });
     }
 
     try {
-        // Normalize email to lowercase
-        const normalizedEmail = email.toLowerCase();
+        // Normalize username
+        const normalizedUsername = username.trim().toLowerCase();
 
-        // Check if the email already exists
-        const existingUser = await account.findOne({ email: normalizedEmail });
+        // Check if the username already exists
+        const existingUser = await account.findOne({ username: normalizedUsername });
         if (existingUser) {
-            return res.status(400).json({ error: 'Email already exists' });
+            return res.status(400).json({ error: 'Username already exists' });
         }
 
-        // Create a new user
-        const user = await account.create({ email: normalizedEmail, password });
-        res.status(201).json(user);
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log(`Hashed password for ${normalizedUsername}: ${hashedPassword}`);
+
+        // Create and save the new user
+        const user = await account.create({
+            username: normalizedUsername,
+            password: hashedPassword,
+        });
+
+        console.log('User created:', user);
+        res.status(201).json({ message: 'User created successfully', user });
     } catch (error) {
-        // Handle errors
-        if (error.code === 11000) { // Duplicate key error
-            res.status(400).json({ error: 'Email already exists' });
-        } else {
-            res.status(400).json({ error: error.message });
-        }
+        console.error('Error creating user:', error.message || error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
+
 
 
 //delete a user
@@ -97,10 +104,11 @@ const updateUser = async (req, res) => {
 }
 
 
+
 module.exports = {
     createUser,
     getUsers,
     getUser,
     deleteUser,
-    updateUser
+    updateUser,
 }
