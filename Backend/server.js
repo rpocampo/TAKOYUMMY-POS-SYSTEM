@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // Import routes
-const ingredientRoutes = require('./routes/ingredientRoutes');
+const ingredientRoutes = require('./routes/ingredientsRoutes');
 
 // Initialize the app
 const app = express();
